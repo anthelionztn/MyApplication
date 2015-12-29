@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
     private Button button;
+    private CheckBox eatBox;
+    private CheckBox sleepBox;
+    private CheckBox dotaBox;
     private int cnt = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
         button = (Button)findViewById(R.id.button);
         ButtonListener bl = new ButtonListener();
         button.setOnClickListener(bl);
+
+        eatBox = (CheckBox)findViewById(R.id.eatID);
+        sleepBox = (CheckBox)findViewById(R.id.sleepID);
+        dotaBox = (CheckBox)findViewById(R.id.dotaID);
+
+        BoxListener bol = new BoxListener();
+        eatBox.setOnClickListener(bol);
+        sleepBox.setOnClickListener(bol);
+        dotaBox.setOnClickListener(bol);
+
     }
 
 
@@ -67,6 +81,24 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             cnt++;
             textView.setText(cnt+"");
+        }
+    }
+    class BoxListener implements View.OnClickListener{
+
+        public void onClick(View v) {
+            int id = v.getId();
+            CheckBox box = (CheckBox)v;
+            if(box.isChecked()){
+                switch (id){
+                    case R.id.eatID:
+                        textView.setText("I'm eating!");break;
+                    case R.id.sleepID:
+                        textView.setText("I'm sleeping!");break;
+                    default:
+                        textView.setText("I'm playing dota!");
+                }
+            }
+
         }
     }
 }
